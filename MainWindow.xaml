@@ -1,0 +1,115 @@
+<Window x:Class="Puzzle15.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="15 Puzzle - Loyd's Game"
+        Height="580"
+        Width="420"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundBrush}">
+
+    <!--
+    =========================================================================
+    MAIN WINDOW LAYOUT
+    =========================================================================
+
+    The window uses a Grid layout with 4 rows:
+        Row 0: Title ("15 Puzzle")
+        Row 1: Move counter ("Moves: X")
+        Row 2: The 4x4 puzzle grid (main game area)
+        Row 3: Control buttons (New Game, Quit)
+
+    This is similar to how a StackPanel works but gives us more control
+    over sizing with the RowDefinitions.
+    -->
+
+    <Grid Margin="20">
+        <!-- Define the row structure -->
+        <Grid.RowDefinitions>
+            <!-- Title row - auto sizes to content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Move counter row - auto sizes to content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Puzzle grid row - takes remaining space with star sizing -->
+            <RowDefinition Height="*"/>
+            <!-- Button row - auto sizes to content -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--
+        =====================================================================
+        ROW 0: TITLE
+        =====================================================================
+        -->
+        <TextBlock Grid.Row="0"
+                   Text="15 Puzzle"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="{StaticResource TextBrush}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10"/>
+
+        <!--
+        =====================================================================
+        ROW 1: MOVE COUNTER
+        =====================================================================
+        The x:Name attribute allows us to reference this element from code-behind
+        -->
+        <TextBlock Grid.Row="1"
+                   x:Name="MoveCounterText"
+                   Text="Moves: 0"
+                   FontSize="16"
+                   Foreground="{StaticResource TextBrush}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,15"/>
+
+        <!--
+        =====================================================================
+        ROW 2: PUZZLE GRID
+        =====================================================================
+        We use a UniformGrid which automatically arranges children in a grid
+        with equal-sized cells. Perfect for our 4x4 puzzle!
+
+        The 16 buttons (tiles) will be created programmatically in code-behind
+        because their content needs to change dynamically during gameplay.
+        -->
+        <UniformGrid Grid.Row="2"
+                     x:Name="PuzzleGrid"
+                     Rows="4"
+                     Columns="4"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="340"
+                     Height="340">
+            <!--
+            Tile buttons are created in MainWindow.xaml.cs
+            Each button is 80x80 pixels with 5px margin between them
+            Total width: 4 * 80 + 4 * 2 * 5 = 320 + 40 = 360 (with margins)
+            -->
+        </UniformGrid>
+
+        <!--
+        =====================================================================
+        ROW 3: CONTROL BUTTONS
+        =====================================================================
+        StackPanel with horizontal orientation places buttons side by side
+        -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,20,0,0">
+
+            <!-- New Game Button -->
+            <Button Content="New Game"
+                    Style="{StaticResource GreenButtonStyle}"
+                    Click="NewGameButton_Click"
+                    Margin="0,0,15,0"/>
+
+            <!-- Quit Button -->
+            <Button Content="Quit"
+                    Style="{StaticResource RedButtonStyle}"
+                    Click="QuitButton_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>
