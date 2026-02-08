@@ -3,17 +3,8 @@
  * 15 Puzzle (Loyd's 15) Game - Game Logic Class
  * ============================================================================
  *
- * This file contains the PuzzleBoard class which handles all the game logic
- * for the 15 Puzzle. It is completely independent of the UI, following the
- * principle of separation of concerns.
- *
- * The puzzle consists of a 4x4 grid containing tiles numbered 1-15 and one
- * empty space. The goal is to arrange tiles in numerical order by sliding
- * them into the empty space.
- *
- * Author: [Your Name]
+ * Author: Jan Holy and Dan Anikyn
  * Date: January 2026
- * Assignment: Computer Science - GUI Programming with OOP (WPF/C#)
  */
 
 using System;
@@ -21,22 +12,7 @@ using System.Collections.Generic;
 
 namespace Puzzle15
 {
-    /// <summary>
-    /// Represents the logical state and operations of the 15 Puzzle board.
-    ///
-    /// <para>
-    /// The board is stored as a 2D array where:
-    /// <list type="bullet">
-    ///   <item>grid[row, col] gives the value at position (row, col)</item>
-    ///   <item>Row 0 is the TOP row, Row 3 is the BOTTOM row</item>
-    ///   <item>Col 0 is the LEFT column, Col 3 is the RIGHT column</item>
-    ///   <item>Value 0 represents the empty space</item>
-    /// </list>
-    /// </para>
-    ///
-    /// <para>
     /// Coordinate System Visualization:
-    /// <code>
     ///        col 0   col 1   col 2   col 3
     ///      +-------+-------+-------+-------+
     /// row 0|   1   |   2   |   3   |   4   |
@@ -45,12 +21,9 @@ namespace Puzzle15
     ///      +-------+-------+-------+-------+
     /// row 2|   9   |  10   |  11   |  12   |
     ///      +-------+-------+-------+-------+
-    /// row 3|  13   |  14   |  15   |   0   |  &lt;- 0 is empty
+    /// row 3|  13   |  14   |  15   |   0   |  
     ///      +-------+-------+-------+-------+
-    /// </code>
     /// The above shows the SOLVED state of the puzzle.
-    /// </para>
-    /// </summary>
     public class PuzzleBoard
     {
         // ====================================================================
@@ -127,22 +100,14 @@ namespace Puzzle15
         /// <summary>
         /// Resets the board to the solved (goal) state.
         ///
-        /// <para>
         /// The solved state has:
-        /// <list type="bullet">
-        ///   <item>Numbers 1-15 arranged sequentially left-to-right, top-to-bottom</item>
-        ///   <item>The empty space (0) in the bottom-right corner at position (3, 3)</item>
-        /// </list>
-        /// </para>
+        ///   Numbers 1-15 arranged sequentially left-to-right, top-to-bottom
+        ///   The empty space (0) in the bottom-right corner at position (3, 3)
         ///
-        /// <para>
         /// Algorithm:
-        /// <list type="number">
-        ///   <item>Iterate through each cell row by row, column by column</item>
-        ///   <item>Assign values 1, 2, 3, ... 15 sequentially</item>
-        ///   <item>Assign 0 to the last cell (bottom-right corner)</item>
-        /// </list>
-        /// </para>
+        ///   Iterate through each cell row by row, column by column
+        ///   Assign values 1, 2, 3, ... 15 sequentially
+        ///   Assign 0 to the last cell (bottom-right corner)
         /// </summary>
         public void ResetToSolved()
         {
@@ -180,17 +145,9 @@ namespace Puzzle15
         /// <summary>
         /// Gets the tile value at a specific grid position.
         /// </summary>
-        /// <param name="row">Row index (0 to 3, where 0 is top).</param>
-        /// <param name="col">Column index (0 to 3, where 0 is left).</param>
-        /// <returns>The tile value at that position (0-15, where 0 is empty).</returns>
-        /// <example>
-        /// In solved state:
-        /// <code>
-        /// GetValue(0, 0) returns 1
-        /// GetValue(1, 2) returns 7
-        /// GetValue(3, 3) returns 0 (empty)
-        /// </code>
-        /// </example>
+        /// Row index (0 to 3, where 0 is top).
+        /// Column index (0 to 3, where 0 is left).
+        /// The tile value at that position (0-15, where 0 is empty).
         public int GetValue(int row, int col)
         {
             return _grid[row, col];
@@ -198,24 +155,9 @@ namespace Puzzle15
 
         /// <summary>
         /// Checks if the tile at position (row, col) can be moved.
-        ///
-        /// <para>
-        /// A move is VALID if and only if the tile is directly adjacent
-        /// (horizontally or vertically) to the empty space.
-        /// Diagonal moves are NOT allowed in the 15 puzzle.
-        /// </para>
-        ///
-        /// <para>
         /// We use Manhattan distance to determine adjacency:
-        /// <code>
-        /// Manhattan distance = |row_diff| + |col_diff|
-        /// </code>
-        /// If the distance equals 1, the tiles are adjacent.
-        /// </para>
         ///
-        /// <para>
         /// Visual representation of valid positions (X) relative to empty (0):
-        /// <code>
         ///         +---+
         ///         | X |  &lt;- one row above
         /// +---+---+---+---+
@@ -223,12 +165,6 @@ namespace Puzzle15
         /// +---+---+---+---+
         ///         | X |  &lt;- one row below
         ///         +---+
-        /// </code>
-        /// </para>
-        /// </summary>
-        /// <param name="row">Row of the tile to check.</param>
-        /// <param name="col">Column of the tile to check.</param>
-        /// <returns>True if the tile can move, false otherwise.</returns>
         public bool IsValidMove(int row, int col)
         {
             // Calculate how far the tile is from the empty space
@@ -243,32 +179,20 @@ namespace Puzzle15
             return manhattanDistance == 1;
         }
 
-        /// <summary>
         /// Attempts to move the tile at position (row, col) into the empty space.
         ///
-        /// <para>
         /// This performs a SWAP operation:
-        /// <list type="number">
-        ///   <item>The tile's value moves to where the empty space was</item>
-        ///   <item>The tile's old position becomes the new empty space</item>
-        /// </list>
-        /// </para>
+        ///   The tile's value moves to where the empty space was
+        ///   The tile's old position becomes the new empty space
         ///
-        /// <para>
         /// Visual example (moving tile 6 into empty space):
-        /// <code>
         /// BEFORE:                    AFTER:
         /// +---+---+---+---+         +---+---+---+---+
         /// | 1 | 2 | 3 | 4 |         | 1 | 2 | 3 | 4 |
         /// +---+---+---+---+         +---+---+---+---+
         /// | 5 | 6 | 0 | 8 |   -->   | 5 | 0 | 6 | 8 |
         /// +---+---+---+---+         +---+---+---+---+
-        /// </code>
-        /// </para>
         /// </summary>
-        /// <param name="row">Row of the tile to move.</param>
-        /// <param name="col">Column of the tile to move.</param>
-        /// <returns>True if the move was successful, false if it was invalid.</returns>
         public bool MoveTile(int row, int col)
         {
             // First, check if this move is allowed
@@ -299,43 +223,21 @@ namespace Puzzle15
         /// <summary>
         /// Shuffles the board by performing random valid moves.
         ///
-        /// <para>
         /// *** THIS IS THE KEY TO ENSURING SOLVABILITY ***
-        /// </para>
         ///
-        /// <para>
-        /// <strong>WHY THIS APPROACH WORKS:</strong>
-        /// </para>
-        ///
-        /// <para>
         /// Not all arrangements of tiles 1-15 are solvable! In fact, exactly
         /// HALF of all possible permutations (16!/2 arrangements) are unsolvable.
         /// This is related to the mathematical concept of "inversions" and parity.
-        /// </para>
         ///
-        /// <para>
         /// Instead of understanding the complex math, we use a simple trick:
-        /// <list type="number">
-        ///   <item>Start from the SOLVED state (which is obviously solvable)</item>
-        ///   <item>Make only LEGAL moves (sliding tiles into empty space)</item>
-        ///   <item>Each legal move is REVERSIBLE (can always undo it)</item>
-        ///   <item>Therefore, any state reached this way can be solved by
-        ///         reversing the sequence of moves</item>
-        /// </list>
-        /// </para>
+        ///   Start from the SOLVED state (which is obviously solvable)
+        ///   Make only LEGAL moves (sliding tiles into empty space)
+        ///   Each legal move is REVERSIBLE (can always undo it)
+        ///   Therefore, any state reached this way can be solved by
+        ///   reversing the sequence of moves
         ///
-        /// <para>
         /// By making 1000 random moves, we thoroughly scramble the puzzle
         /// while mathematically guaranteeing it remains solvable.
-        /// </para>
-        ///
-        /// <para>
-        /// <strong>OPTIMIZATION:</strong>
-        /// We track the last move to avoid immediately undoing it (e.g., moving
-        /// a tile right then immediately left), which would waste shuffling effort.
-        /// </para>
-        /// </summary>
-        /// <param name="numberOfMoves">Number of random moves to perform (default 1000).</param>
         public void Shuffle(int numberOfMoves = 1000)
         {
             // Always start from the solved state before shuffling
@@ -384,29 +286,7 @@ namespace Puzzle15
             }
         }
 
-        /// <summary>
         /// Checks if the puzzle is in the winning (solved) state.
-        ///
-        /// <para>
-        /// The puzzle is solved when:
-        /// <list type="bullet">
-        ///   <item>Tiles 1-15 are in sequential order (left-to-right, top-to-bottom)</item>
-        ///   <item>The empty space (0) is in the bottom-right corner</item>
-        /// </list>
-        /// </para>
-        ///
-        /// <para>
-        /// We check each position against its expected value:
-        /// <code>
-        /// Position (0,0) should have 1
-        /// Position (0,1) should have 2
-        /// ...
-        /// Position (3,2) should have 15
-        /// Position (3,3) should have 0
-        /// </code>
-        /// </para>
-        /// </summary>
-        /// <returns>True if the puzzle is solved, false otherwise.</returns>
         public bool IsSolved()
         {
             // The expected value starts at 1 and increments for each position
@@ -447,23 +327,11 @@ namespace Puzzle15
         // PRIVATE HELPER METHODS
         // ====================================================================
 
-        /// <summary>
         /// Gets all grid positions that are adjacent to the empty space.
         ///
-        /// <para>
         /// These are the positions from which a tile could legally move.
         /// We check all four directions (up, down, left, right) and
         /// return only those that fall within the grid boundaries.
-        /// </para>
-        /// </summary>
-        /// <returns>A list of (row, col) tuples for valid adjacent positions.</returns>
-        /// <example>
-        /// If empty is at (1, 2):
-        /// Returns: [(0,2), (2,2), (1,1), (1,3)] - all four neighbors
-        ///
-        /// If empty is at (0, 0) (top-left corner):
-        /// Returns: [(1,0), (0,1)] - only two valid neighbors
-        /// </example>
         private List<(int row, int col)> GetAdjacentPositions()
         {
             List<(int row, int col)> adjacentPositions = new List<(int, int)>();

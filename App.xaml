@@ -28,6 +28,10 @@
         <SolidColorBrush x:Key="TileHoverBrush" Color="{StaticResource TileHoverColor}"/>
         <SolidColorBrush x:Key="EmptyTileBrush" Color="{StaticResource EmptyTileColor}"/>
         <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
+        <SolidColorBrush x:Key="ButtonGreenBrush" Color="{StaticResource ButtonGreenColor}"/>
+        <SolidColorBrush x:Key="ButtonGreenHoverBrush" Color="{StaticResource ButtonGreenHoverColor}"/>
+        <SolidColorBrush x:Key="ButtonRedBrush" Color="{StaticResource ButtonRedColor}"/>
+        <SolidColorBrush x:Key="ButtonRedHoverBrush" Color="{StaticResource ButtonRedHoverColor}"/>
 
         <!--
         Style for the numbered tile buttons
@@ -71,7 +75,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="{StaticResource ButtonGreenColor}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonGreenBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="25,12"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -104,7 +108,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="{StaticResource ButtonRedColor}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonRedBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Padding" Value="25,12"/>
             <Setter Property="Cursor" Value="Hand"/>
