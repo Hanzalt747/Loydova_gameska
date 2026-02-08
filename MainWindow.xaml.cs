@@ -3,19 +3,8 @@
  * 15 Puzzle (Loyd's 15) Game - Main Window Code-Behind
  * ============================================================================
  *
- * This file contains the code-behind for MainWindow.xaml. It handles:
- *   - Creating and managing the tile buttons
- *   - Responding to user clicks
- *   - Updating the display to reflect game state
- *   - Managing the move counter
- *   - Showing win messages
- *
- * The actual game logic is delegated to the PuzzleBoard class, following
- * the principle of separation of concerns (UI vs Logic).
- *
- * Author: [Your Name]
+ * Author: Jan Holy and Dan Anikyn
  * Date: January 2026
- * Assignment: Computer Science - GUI Programming with OOP (WPF/C#)
  */
 
 using System.Windows;
@@ -26,19 +15,12 @@ namespace Puzzle15
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     ///
-    /// <para>
     /// This class serves as the "View" in a simplified MVC/MVVM pattern:
-    /// <list type="bullet">
-    ///   <item>PuzzleBoard (Model): Contains game state and logic</item>
-    ///   <item>MainWindow (View): Displays the game and handles user input</item>
-    /// </list>
-    /// </para>
-    ///
-    /// <para>
+    ///   PuzzleBoard (Model): Contains game state and logic
+    ///   MainWindow (View): Displays the game and handles user input
     /// The window maintains a 2D array of Button references that correspond
     /// to the PuzzleBoard's grid. When the board state changes, we update
     /// these buttons to show the new tile arrangement.
-    /// </para>
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -101,22 +83,12 @@ namespace Puzzle15
         /// <summary>
         /// Creates all 16 tile buttons and adds them to the PuzzleGrid.
         ///
-        /// <para>
         /// Each button is:
-        /// <list type="bullet">
-        ///   <item>Sized to 80x80 pixels</item>
-        ///   <item>Given a margin for spacing</item>
-        ///   <item>Styled using the TileButtonStyle from App.xaml</item>
-        ///   <item>Connected to the TileButton_Click event handler</item>
-        ///   <item>Tagged with its (row, col) position for identification</item>
-        /// </list>
-        /// </para>
+        ///   Sized to 80x80 pixels
+        ///   Given a margin for spacing
+        ///   Styled using the TileButtonStyle from App.xaml
+        ///   Connected to the TileButton_Click event handler
         ///
-        /// <para>
-        /// The Tag property stores the button's grid position as a tuple.
-        /// When a button is clicked, we retrieve this tag to know which
-        /// tile was clicked.
-        /// </para>
         /// </summary>
         private void CreateTileButtons()
         {
@@ -165,27 +137,6 @@ namespace Puzzle15
 
         /// <summary>
         /// Updates all tile buttons to reflect the current board state.
-        ///
-        /// <para>
-        /// This method reads each value from the PuzzleBoard and updates
-        /// the corresponding button's content and enabled state.
-        /// </para>
-        ///
-        /// <para>
-        /// For numbered tiles (1-15):
-        /// <list type="bullet">
-        ///   <item>Content is set to the number as a string</item>
-        ///   <item>Button is enabled (clickable)</item>
-        /// </list>
-        /// </para>
-        ///
-        /// <para>
-        /// For the empty tile (0):
-        /// <list type="bullet">
-        ///   <item>Content is empty string (no text displayed)</item>
-        ///   <item>Button is disabled (not clickable, shows dark style)</item>
-        /// </list>
-        /// </para>
         /// </summary>
         private void UpdateDisplay()
         {
@@ -227,19 +178,13 @@ namespace Puzzle15
 
         /// <summary>
         /// Handles click events on tile buttons.
-        ///
-        /// <para>
-        /// Flow:
-        /// <list type="number">
-        ///   <item>Extract the (row, col) position from the button's Tag</item>
-        ///   <item>Attempt to move the tile at that position</item>
-        ///   <item>If successful: increment counter and update display</item>
-        ///   <item>Check for win condition</item>
-        /// </list>
-        /// </para>
+        ///   Extract the (row, col) position from the button's Tag
+        ///   Attempt to move the tile at that position
+        ///   If successful: increment counter and update display
+        ///   Check for win condition
         /// </summary>
-        /// <param name="sender">The button that was clicked.</param>
-        /// <param name="e">Event arguments (not used).</param>
+        /// The button that was clicked.
+        /// Event arguments (not used).
         private void TileButton_Click(object sender, RoutedEventArgs e)
         {
             // Cast sender to Button to access its properties
@@ -275,8 +220,7 @@ namespace Puzzle15
         /// Handles the "New Game" button click.
         /// Starts a fresh game with a newly shuffled board.
         /// </summary>
-        /// <param name="sender">The New Game button.</param>
-        /// <param name="e">Event arguments (not used).</param>
+        /// The New Game button.
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
             StartNewGame();
@@ -286,8 +230,7 @@ namespace Puzzle15
         /// Handles the "Quit" button click.
         /// Closes the application.
         /// </summary>
-        /// <param name="sender">The Quit button.</param>
-        /// <param name="e">Event arguments (not used).</param>
+        /// The Quit button.
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             // Close the window, which ends the application
@@ -302,14 +245,10 @@ namespace Puzzle15
         /// <summary>
         /// Starts a new game by shuffling the board and resetting the counter.
         ///
-        /// <para>
         /// Actions performed:
-        /// <list type="number">
-        ///   <item>Shuffle the board (1000 random moves from solved state)</item>
-        ///   <item>Reset the move counter to 0</item>
-        ///   <item>Update the display to show the new arrangement</item>
-        /// </list>
-        /// </para>
+        ///   Shuffle the board (1000 random moves from solved state)
+        ///   Reset the move counter to 0
+        ///   Update the display to show the new arrangement
         /// </summary>
         private void StartNewGame()
         {
